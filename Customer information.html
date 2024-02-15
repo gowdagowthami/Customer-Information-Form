@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Information Form</title>
+<style>
+    /* Style for form */
+ 
+    label {
+        
+        margin-bottom: 5px;
+        border: 0%;
+    }
+    input[type="text"], select {
+        width: 10%;
+        margin-bottom: 15px;
+    }
+    form{border-style: ridge;
+     text-align: center;
+     align-items: center;
+     justify-content: center;
+     height: 290px;
+     width: 40%;
+     padding-top: 30px;
+     margin-top: 150px;
+     
+     }
+</style>
+</head>
+<body>
+
+<!-- Customer Information Form -->
+<center>
+   <!-- <h1>Customer Information</h1> -->
+    <form id="customerForm">
+        <h1>Customer Information</h1>
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter Name" required><br>
+    
+    <label for="employeeId">Employee ID:</label>
+    <input type="number" id="employeeId" placeholder="Enter Employee ID" required><br><br>
+    
+    <label for="city" >City:</label>
+    <select id="city" style="width: 100px;" required>
+        <option value="" disabled selected> ▼Select City▼ </option>
+        <option value="New York">New York</option>
+        <option value="London">London</option>
+        <option value="Tokyo">Tokyo</option>
+    </select><br>
+    
+    <label for="gender">Gender:</label>
+    
+    <input type="radio" id="female" name="gender" value="female" required>Female
+    <input type="radio" id="male" name="gender" value="Male" required>Male<br>
+
+    <!-- <input type="checkbox" name="female" value="female" tabindex="1" /> female
+    <input type="checkbox" name="male" value="male" tabindex="2" /> male -->
+ 
+<br>
+    <button type="submit">Save</button>
+
+</form>
+
+<!-- Display saved data -->
+<div id="savedData"></div>
+
+<script>
+    // Function to save data to local storage
+    function saveData(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const employeeId = document.getElementById('employeeId').value;
+        const city = document.getElementById('city').value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        
+        const data = {
+            name: name,
+            employeeId: employeeId,
+            city: city,
+            gender: gender
+        };
+        
+        localStorage.setItem('customerData', JSON.stringify(data));
+        displayData(data);
+    }
+    
+    // Function to display saved data
+    function displayData(data) {
+        const savedDataDiv = document.getElementById('savedData');
+        savedDataDiv.innerHTML = `
+            <h2>Saved Data:</h2>
+            <p>Name: ${data.name}</p>
+            <p>Employee ID: ${data.employeeId}</p>
+            <p>City: ${data.city}</p>
+            <p>Gender: ${data.gender}</p>
+        `;
+    }
+    
+    // Event listener for form submission
+    document.getElementById('customerForm').addEventListener('submit', saveData);
+    
+    // Check if there is saved data and display it
+    // const savedData = JSON.parse(localStorage.getItem('customerData'));
+    // if (savedData) {
+    //     displayData(savedData);
+    // }
+</script>
+</center>
+</body>
+</html>
